@@ -1,6 +1,6 @@
 # Back-end do Troc.ai
 
-API REST em Flask integrada ao SQLite já existente em `Bd - Troc.AI`.
+API REST em Flask integrada ao SQLite já existente em `Bd_Troc.AI`.
 
 ## 1. Preparar o ambiente
 
