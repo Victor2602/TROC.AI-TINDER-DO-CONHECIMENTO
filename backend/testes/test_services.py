@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
-DB_DIR = ROOT_DIR / "Bd - Troc.AI"
+DB_DIR = ROOT_DIR / "Bd_Troc.AI"
 if str(DB_DIR) not in sys.path:
     sys.path.insert(0, str(DB_DIR))
 

@@ -5,16 +5,13 @@ Responsável: Daphiny
 Camada de dados do Troc.ai (Tinder do Conhecimento): modelagem relacional, regras de integridade no próprio banco, 5 perfis de demonstração e testes.
 Tecnologia: SQLite 3 + Python 3.8+ (biblioteca padrão)
 
-Execução
+execução
 
 ```bash
-python api.py            inicia a API em http://127.0.0.1:3001
-python -m unittest -v    executa os testes da camada de dados
+cd banco
+python banco.py          cria trocai.db, com 5 perfis e mostra o match do Lucas
+python -m unittest -v    alguns testes
 ```
-
-Na primeira inicialização, `api.py` cria o banco e carrega os perfis de
-demonstração caso ainda não existam usuários. Para iniciar também a interface,
-consulte as instruções no README da raiz do projeto.
 
  Arquivos
 
@@ -23,7 +20,6 @@ consulte as instruções no README da raiz do projeto.
 | `schema.sql` | Tabelas, restrições, triggers e views |
 | `dados_iniciais.sql` | Categorias, habilidades e selo inicial |
 | `banco.py` | Repositório (funções que a API chama) + dados demo |
-| `api.py` | API HTTP usada pelo front-end React |
 | `testes.py` | 28 testes das regras de negócio |
 
 Modelo de dados (ER)
