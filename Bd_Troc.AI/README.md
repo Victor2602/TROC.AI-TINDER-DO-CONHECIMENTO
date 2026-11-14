@@ -10,7 +10,7 @@ execução
 ```bash
 cd banco
 python banco.py          cria trocai.db, com 5 perfis e mostra o match do Lucas
-python -m unittest -v    alguns testes
+python -m unittest -v    alguns tests
 ```
 
  Arquivos
