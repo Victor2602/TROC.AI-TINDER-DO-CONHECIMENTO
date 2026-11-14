@@ -1,47 +1,33 @@
-# TROC.AI - Tinder do Conhecimento
+# TROC.AI — Tinder do Conhecimento
 
-Aplicação web para buscar perfis, compartilhar habilidades e criar conexões com
-interesse mútuo. O front-end React/Vite se comunica com uma API HTTP em Python,
-que utiliza o repositório SQLite em `Bd - Troc.AI`.
+Plataforma para buscar perfis, identificar compatibilidade de habilidades e permitir que usuários demonstrem interesse mútuo para viabilizar uma permuta.
 
-## Executar localmente
+## Componentes
 
-Requisitos: Python 3.8+ e Node.js.
+- `frontend/`: interface React + Vite.
+- `backend/`: API REST em Python + Flask.
+- `Bd - Troc.AI/`: banco SQLite, modelo relacional, regras de matching e testes.
+- `docs/API.md`: contrato da API para integração do front-end.
+- `backend/README.md`: instruções de preparação e execução do back-end.
 
-1. Em um terminal, inicie o backend:
+## Início rápido
 
-   ```powershell
-   cd "Bd - Troc.AI"
-   python api.py
-   ```
+Na raiz do repositório, crie e ative um ambiente virtual Python, instale as dependências de `backend/requirements.txt` e inicie a API:
 
-   Na primeira execução, o banco `trocai.db` e os perfis de demonstração são
-   criados automaticamente. O servidor fica em `http://127.0.0.1:3001`.
-
-2. Em outro terminal, inicie o front-end:
-
-   ```powershell
-   cd frontend
-   npm install
-   npm run dev
-   ```
-
-   Abra o endereço exibido pelo Vite (por padrão
-   `http://localhost:5173`). O Vite encaminha as chamadas `/api` ao backend.
-
-3. Para testar, entre com um perfil de demonstração:
-
-   - E-mail: `lucas.andrade@troc.ai`
-   - Senha: `senha123`
-
-   Os demais perfis de demonstração também usam a senha `senha123`. Para testar
-   um match, entre em duas sessões/perfis distintos e ambos devem se conectar.
-
-## Testes do backend
-
-```powershell
-cd "Bd - Troc.AI"
-python -m unittest -v
+```bash
+python -m venv .venv
+# Windows PowerShell: .venv\\Scripts\\Activate.ps1
+# Linux/macOS: source .venv/bin/activate
+pip install -r requirements.txt
+python -m backend.app
 ```
 
-O front-end pode ser validado com `npm run build` dentro da pasta `frontend`.
+Em outro terminal, inicie o front-end:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+A API fica em `http://127.0.0.1:3001`; o front-end Vite fica em `http://localhost:5173`. Consulte `docs/API.md` antes de integrar componentes React aos endpoints.
