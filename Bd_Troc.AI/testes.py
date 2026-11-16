@@ -9,7 +9,7 @@ LUCAS, MARINA, MARIA, BEATRIZ, PEDRO = 1045, 1046, 1047, 1048, 1049
 
 class BancoTestCase(unittest.TestCase):
     def setUp(self):
-        db.ITERACOES_SENHA = 1000            # acelera o hash nos testes
+        db.ITERACOES_SENHA = 1000            # acelera o hash nos tests
         self.conn = db.conectar(":memory:")
         db.criar_banco(self.conn)
         db.popular_demo(self.conn)

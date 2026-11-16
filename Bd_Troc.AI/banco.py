@@ -132,6 +132,11 @@ def autenticar(conn, email, senha):
     return None
 
 
+def usuario_existe(conn, usuario_id):
+    """Informa se o identificador corresponde a um usuário cadastrado."""
+    return conn.execute("SELECT 1 FROM usuarios WHERE id = ?", (usuario_id,)).fetchone() is not None
+
+
 def perfil_ativo(conn, usuario_id):
     """True se tem >= 3 Skills Out e >= 1 Skill In (ativa o algoritmo)."""
     return conn.execute("SELECT 1 FROM v_usuarios_ativos WHERE id = ?",
