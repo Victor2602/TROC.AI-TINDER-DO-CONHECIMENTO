@@ -38,10 +38,10 @@ export default function Match({ usuario }) {
           <div className="afinidade">
             {match.indice_afinidade}%<small>afinidade</small>
           </div>
-          <h2>{usuario.nome} ⇄ {match.perfil.nome}</h2>
+          <h2>{usuario.nome} ⇄ {match.outro_usuario.nome}</h2>
           <p className="mutuo">Conexão confirmada: vocês demonstraram interesse mútuo.</p>
-          <p><strong>{match.perfil.nome} ensina:</strong> {match.perfil.skills_out.join(", ")}</p>
-          <p><strong>{match.perfil.nome} quer aprender:</strong> {match.perfil.skills_in.join(", ")}</p>
+          <p><strong>{match.outro_usuario.nome} ensina:</strong> {match.outro_usuario.skills_out.join(", ")}</p>
+          <p><strong>{match.outro_usuario.nome} quer aprender:</strong> {match.outro_usuario.skills_in.join(", ")}</p>
         </section>
       ))}
     </>

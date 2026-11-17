@@ -13,6 +13,7 @@ export default function Busca({ usuario }) {
   const pesquisar = async (e) => {
     e?.preventDefault();
     setErro("");
+    setPerfis(null);
     try {
       setPerfis(await buscar(q, tipo));
     } catch (err) {
@@ -21,6 +22,11 @@ export default function Busca({ usuario }) {
   };
 
   useEffect(() => {
+    if (!usuario) {
+      setPerfis([]);
+      setErro("");
+      return;
+    }
     pesquisar();
   }, [usuario?.id]);
 
@@ -45,24 +51,31 @@ export default function Busca({ usuario }) {
     <>
       <h1>Buscar pessoas</h1>
       <p className="sub">Encontre quem ensina o que você quer aprender.</p>
-      <form className="busca" onSubmit={pesquisar}>
-        <input
-          type="search"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Buscar por habilidade, nome ou cidade"
-        />
-        <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-          <option value="">Ofertas e demandas</option>
-          <option value="oferta">O que as pessoas ensinam</option>
-          <option value="demanda">O que as pessoas querem aprender</option>
-        </select>
-        <button type="submit">Buscar</button>
-      </form>
+      {usuario ? (
+        <form className="busca" onSubmit={pesquisar}>
+          <input
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Buscar por habilidade, nome ou cidade"
+          />
+          <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+            <option value="">Ofertas e demandas</option>
+            <option value="oferta">O que as pessoas ensinam</option>
+            <option value="demanda">O que as pessoas querem aprender</option>
+          </select>
+          <button type="submit">Buscar</button>
+        </form>
+      ) : (
+        <div className="vazio">
+          <p>Entre para ver sugestões de perfis compatíveis com você.</p>
+          <Link to="/login">Entrar</Link>
+        </div>
+      )}
 
       {erro && <div className="alerta erro" role="alert">{erro}</div>}
       {feedback && <div className="alerta ok" role="status">{feedback}</div>}
-      {perfis && perfis.length === 0 && (
+      {usuario && perfis && perfis.length === 0 && (
         <div className="vazio">Nenhum perfil ativo corresponde à busca.</div>
       )}
       <div className="grade">

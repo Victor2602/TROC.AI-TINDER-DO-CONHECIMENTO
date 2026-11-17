@@ -463,16 +463,16 @@ const response = await fetch("/api/opcoes", {
 
 O proxy do Vite encaminha `/api` para o Flask. Assim, o código React não precisa fixar `http://127.0.0.1:3001` em cada chamada. O navegador envia automaticamente o cookie de sessão para chamadas da mesma origem; `credentials: "same-origin"` deixa essa intenção explícita.
 
-### Adequações necessárias no front-end atual
+### Integração atual do front-end
 
-O front-end enviado originalmente ainda utiliza um contrato anterior, baseado em registros independentes de `conhecimentos`. Esse modelo não corresponde ao banco atual, que associa `OUT` e `IN` diretamente aos usuários.
+O front-end consome o contrato atual, que associa `OUT` e `IN` diretamente aos usuários:
 
-| Arquivo atual | Contrato antigo | Contrato que deve consumir |
-|---|---|---|
-| `src/api.js` | `/api/conhecimentos` e `/api/match` | `/api/opcoes`, `/api/usuarios`, `/api/login`, `/api/sugestoes`, `/api/interacoes` e `/api/matches`. |
-| `pages/Cadastro.jsx` | Um único item com tipo, área, descrição, nível e disponibilidade | Cadastro de usuário com nome, e-mail, senha, `skills_out[]` e `skills_in[]`. |
-| `pages/Busca.jsx` | Lista de conhecimentos com `tipo`, `area`, `descricao` etc. | Lista de perfis com `id`, `nome`, `skills_out[]`, `skills_in[]` e `indice_afinidade`. Ações de conectar/descartar chamam `POST /api/interacoes`. |
-| `pages/Match.jsx` | Campos `a`, `b`, `mutuo`, `aEnsina` e `bEnsina` | `match_id`, `indice_afinidade` e `outro_usuario` retornados por `GET /api/matches`. Todo registro retornado já representa interesse mútuo. |
+| Arquivo | Integração |
+|---|---|
+| `src/api.js` | Usa `/api/opcoes`, `/api/usuarios`, `/api/login`, `/api/sessao`, `/api/sugestoes`, `/api/interacoes`, `/api/logout` e `/api/matches`. A busca por texto e tipo filtra localmente as sugestões retornadas. |
+| `pages/Cadastro.jsx` | Cria o usuário com `skills_out[]` e `skills_in[]` e, em seguida, chama `POST /api/login` para iniciar a sessão. |
+| `pages/Busca.jsx` | Exibe sugestões para o usuário autenticado; as ações de conectar chamam `POST /api/interacoes`. |
+| `pages/Match.jsx` | Exibe `match_id`, `indice_afinidade` e `outro_usuario` de `GET /api/matches`. Todo registro retornado já representa interesse mútuo. |
 
 Após o login, o front-end não deve manter nem enviar `usuario_id` como prova de identidade. O navegador conserva o cookie HTTP-only e o envia nas chamadas protegidas. Para recuperar o usuário após atualizar a página, o React deve consultar `GET /api/sessao`. Ao sair, deve chamar `POST /api/logout`. O cookie é HTTP-only e não deve ser lido diretamente por JavaScript.
 

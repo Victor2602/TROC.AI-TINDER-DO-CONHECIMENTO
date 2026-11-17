@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { cadastrar, notificarMudancaSessao, obterOpcoes } from "../api.js";
+import { cadastrar, entrar, notificarMudancaSessao, obterOpcoes } from "../api.js";
 
 const VAZIO = {
   nome: "",
@@ -46,8 +46,8 @@ export default function Cadastro() {
     }
     setSalvando(true);
     try {
-      const resultado = await cadastrar(dados);
-      setMensagem(`Bem-vindo(a), ${resultado.usuario.nome}!`);
+      await cadastrar(dados);
+      await entrar({ email: dados.email, senha: dados.senha });
       notificarMudancaSessao();
       navigate("/");
     } catch (err) {

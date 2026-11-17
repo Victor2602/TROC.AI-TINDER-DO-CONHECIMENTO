@@ -18,7 +18,14 @@ export default function App() {
           setUsuario(r.usuario);
           setErroSessao("");
         })
-        .catch((err) => setErroSessao(err.message));
+        .catch((err) => {
+          if (err.status === 401) {
+            setUsuario(null);
+            setErroSessao("");
+            return;
+          }
+          setErroSessao(err.message);
+        });
     };
     atualizar();
     window.addEventListener("trocai-sessao-alterada", atualizar);
